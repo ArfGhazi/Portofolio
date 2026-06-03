@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Arfa Ghazi Amr Arumi — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #07080f;
+      --surface: rgba(255,255,255,0.045);
+      --surface-hover: rgba(255,255,255,0.08);
+      --glass: rgba(255,255,255,0.06);
+      --glass-border: rgba(255,255,255,0.12);
+      --text: #f0f0f8;
+      --text-muted: rgba(240,240,248,0.5);
+      --accent: #a78bfa;
+      --accent2: #60a5fa;
+      --accent3: #f472b6;
+      --gold: #fbbf24;
+      --blur: blur(20px);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* ── Custom Cursor ── */
+    #cursor {
+      width: 12px; height: 12px;
+      background: var(--accent);
+      border-radius: 50%;
+      position: fixed; top: 0; left: 0;
+      pointer-events: none; z-index: 9999;
+      transition: transform 0.15s ease, background 0.3s;
+      mix-blend-mode: screen;
+    }
+    #cursor-ring {
+      width: 40px; height: 40px;
+      border: 1px solid rgba(167,139,250,0.4);
+      border-radius: 50%;
+      position: fixed; top: 0; left: 0;
+      pointer-events: none; z-index: 9998;
+      transition: transform 0.4s cubic-bezier(0.23,1,0.32,1), opacity 0.3s;
+    }
+
+    /* ── Background Orbs ── */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.35;
+      pointer-events: none;
+      animation: orb-drift 12s ease-in-out infinite alternate;
+    }
+    .orb-1 { width: 600px; height: 600px; background: radial-gradient(circle, #7c3aed, transparent); top: -150px; left: -150px; animation-delay: 0s; }
+    .orb-2 { width: 500px; height: 500px; background: radial-gradient(circle, #1d4ed8, transparent); top: 40%; right: -100px; animation-delay: -4s; }
+    .orb-3 { width: 400px; height: 400px; background: radial-gradient(circle, #be185d, transparent); bottom: -100px; left: 30%; animation-delay: -8s; }
+    @keyframes orb-drift {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(30px, 40px) scale(1.1); }
+    }
+
+    /* ── Noise Texture ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0; opacity: 0.4;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+      z-index: 100;
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      border: 1px solid var(--glass-border);
+      border-radius: 100px;
+      padding: 10px 28px;
+      display: flex; align-items: center; gap: 32px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1);
+      transition: all 0.3s;
+    }
+    nav .logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800; font-size: 1rem;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
+    }
+    nav a {
+      font-size: 0.82rem; font-weight: 500;
+      color: var(--text-muted); text-decoration: none;
+      letter-spacing: 0.3px;
+      transition: color 0.2s;
+      position: relative;
+    }
+    nav a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 1.5px;
+      background: var(--accent);
+      transition: width 0.3s;
+    }
+    nav a:hover { color: var(--text); }
+    nav a:hover::after { width: 100%; }
+
+    /* ── Sections ── */
+    section { position: relative; z-index: 1; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 120px 24px 80px;
+      text-align: center;
+    }
+    .hero-inner { max-width: 780px; }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(167,139,250,0.1);
+      border: 1px solid rgba(167,139,250,0.25);
+      border-radius: 100px;
+      padding: 6px 16px; font-size: 0.78rem;
+      color: var(--accent); letter-spacing: 0.5px;
+      margin-bottom: 28px;
+      backdrop-filter: blur(8px);
+      animation: fade-up 0.6s ease both;
+    }
+    .hero-badge .dot {
+      width: 7px; height: 7px; background: var(--accent);
+      border-radius: 50%; animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.4)} }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 800; line-height: 1.05;
+      letter-spacing: -2px;
+      animation: fade-up 0.7s 0.1s ease both;
+    }
+    h1 .gradient-text {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 50%, var(--accent3) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero-sub {
+      font-size: 1.05rem; color: var(--text-muted);
+      max-width: 560px; margin: 20px auto 40px;
+      line-height: 1.7; font-weight: 300;
+      animation: fade-up 0.7s 0.2s ease both;
+    }
+    .hero-cta {
+      display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+      animation: fade-up 0.7s 0.3s ease both;
+    }
+    .btn-primary {
+      padding: 13px 28px;
+      background: linear-gradient(135deg, var(--accent), #7c3aed);
+      border: none; border-radius: 100px;
+      color: #fff; font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem; font-weight: 500; cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 0 32px rgba(167,139,250,0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 48px rgba(167,139,250,0.6); }
+    .btn-ghost {
+      padding: 13px 28px;
+      background: var(--glass); border: 1px solid var(--glass-border);
+      border-radius: 100px; color: var(--text);
+      font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+      font-weight: 500; cursor: pointer; text-decoration: none;
+      backdrop-filter: var(--blur);
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-ghost:hover { background: var(--surface-hover); transform: translateY(-2px); }
+
+    /* scroll indicator */
+    .scroll-hint {
+      position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      color: var(--text-muted); font-size: 0.72rem; letter-spacing: 1.5px;
+      text-transform: uppercase; animation: fade-up 1s 0.8s ease both;
+    }
+    .scroll-line {
+      width: 1px; height: 48px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+      animation: line-scroll 2s ease-in-out infinite;
+    }
+    @keyframes line-scroll { 0%,100%{opacity:0.3;transform:scaleY(1)} 50%{opacity:1;transform:scaleY(0.6)} }
+
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Glass Card ── */
+    .glass-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 24px;
+      backdrop-filter: blur(24px) saturate(160%);
+      -webkit-backdrop-filter: blur(24px) saturate(160%);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1);
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    }
+    .glass-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 56px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.15);
+      border-color: rgba(167,139,250,0.25);
+    }
+
+    /* ── Section Header ── */
+    .section-header { text-align: center; margin-bottom: 64px; }
+    .section-label {
+      display: inline-block;
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 3px; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 800; letter-spacing: -1px; line-height: 1.1;
+    }
+    .section-desc {
+      color: var(--text-muted); font-size: 0.95rem;
+      max-width: 500px; margin: 14px auto 0; line-height: 1.7;
+    }
+
+    /* ── ABOUT ── */
+    #about { padding: 120px 0; }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1.3fr; gap: 40px; align-items: start;
+    }
+    .about-img-wrap {
+      position: relative;
+    }
+    .about-avatar {
+      width: 100%; aspect-ratio: 3/4;
+      background: linear-gradient(135deg, rgba(124,58,237,0.2), rgba(29,78,216,0.2));
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.1);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 5rem; letter-spacing: -2px;
+      backdrop-filter: var(--blur);
+      overflow: hidden;
+      position: relative;
+    }
+    .about-avatar::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(167,139,250,0.15) 0%, transparent 60%);
+    }
+    .about-avatar-initials {
+      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 4rem;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      position: relative; z-index: 1;
+    }
+    .about-tag {
+      position: absolute; bottom: -16px; right: -16px;
+      background: rgba(167,139,250,0.15);
+      border: 1px solid rgba(167,139,250,0.3);
+      border-radius: 16px; padding: 12px 20px;
+      backdrop-filter: var(--blur);
+      font-size: 0.78rem; font-weight: 500; color: var(--accent);
+    }
+    .about-content { padding: 8px 0; }
+    .about-content h3 {
+      font-family: 'Syne', sans-serif; font-size: 1.6rem;
+      font-weight: 700; margin-bottom: 16px; letter-spacing: -0.5px;
+    }
+    .about-content p {
+      color: var(--text-muted); line-height: 1.8; font-size: 0.95rem; margin-bottom: 16px;
+    }
+    .about-stats {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 16px; margin-top: 32px;
+    }
+    .stat-box {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px; padding: 18px;
+      backdrop-filter: var(--blur); text-align: center;
+    }
+    .stat-num {
+      font-family: 'Syne', sans-serif; font-size: 1.8rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .stat-label { font-size: 0.72rem; color: var(--text-muted); margin-top: 4px; }
+
+    /* ── SKILLS ── */
+    #skills { padding: 120px 0; }
+    .skills-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;
+    }
+    .skill-category { padding: 32px; }
+    .skill-category-title {
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 24px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .skill-category-title::after {
+      content: ''; flex: 1; height: 1px;
+      background: linear-gradient(to right, rgba(167,139,250,0.3), transparent);
+    }
+    .skill-pills { display: flex; flex-wrap: wrap; gap: 10px; }
+    .pill {
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 16px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 100px; font-size: 0.82rem; font-weight: 500;
+      transition: all 0.25s;
+    }
+    .pill:hover {
+      background: rgba(167,139,250,0.12);
+      border-color: rgba(167,139,250,0.3);
+      transform: translateY(-2px);
+    }
+    .pill-icon { font-size: 1rem; }
+
+    /* ── EDUCATION ── */
+    #education { padding: 120px 0; }
+    .edu-timeline { display: flex; flex-direction: column; gap: 24px; max-width: 800px; margin: 0 auto; }
+    .edu-card { padding: 32px 36px; position: relative; overflow: hidden; }
+    .edu-card::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, var(--accent), var(--accent2));
+      border-radius: 0 2px 2px 0;
+    }
+    .edu-year {
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 8px;
+    }
+    .edu-school {
+      font-family: 'Syne', sans-serif; font-size: 1.2rem;
+      font-weight: 700; margin-bottom: 4px; letter-spacing: -0.3px;
+    }
+    .edu-major {
+      font-size: 0.82rem; color: var(--accent2); margin-bottom: 12px; font-weight: 500;
+    }
+    .edu-desc { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; }
+    .edu-glow {
+      position: absolute; right: -60px; top: -60px;
+      width: 180px; height: 180px;
+      background: radial-gradient(circle, rgba(167,139,250,0.08), transparent);
+      border-radius: 50%; pointer-events: none;
+    }
+
+    /* ── ORGANIZATION ── */
+    #organization { padding: 120px 0; }
+    .org-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .org-section-title {
+      font-family: 'Syne', sans-serif; font-size: 1rem;
+      font-weight: 700; color: var(--text-muted); margin-bottom: 16px;
+      padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .org-item {
+      display: flex; gap: 16px; padding: 20px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px; margin-bottom: 12px;
+      transition: all 0.25s;
+    }
+    .org-item:hover {
+      background: rgba(167,139,250,0.06);
+      border-color: rgba(167,139,250,0.2);
+    }
+    .org-icon {
+      width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
+      background: linear-gradient(135deg, rgba(124,58,237,0.25), rgba(29,78,216,0.25));
+      border: 1px solid rgba(255,255,255,0.1);
+      display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
+    }
+    .org-role {
+      font-weight: 600; font-size: 0.88rem; margin-bottom: 4px;
+    }
+    .org-desc { font-size: 0.78rem; color: var(--text-muted); line-height: 1.5; }
+
+    /* ── ACHIEVEMENTS ── */
+    #achievements { padding: 120px 0; }
+    .ach-tabs {
+      display: flex; gap: 10px; justify-content: center; margin-bottom: 48px; flex-wrap: wrap;
+    }
+    .tab-btn {
+      padding: 9px 22px;
+      background: var(--glass); border: 1px solid var(--glass-border);
+      border-radius: 100px; color: var(--text-muted);
+      font-family: 'DM Sans', sans-serif; font-size: 0.82rem;
+      font-weight: 500; cursor: pointer; backdrop-filter: var(--blur);
+      transition: all 0.25s;
+    }
+    .tab-btn.active, .tab-btn:hover {
+      background: rgba(167,139,250,0.15);
+      border-color: rgba(167,139,250,0.35);
+      color: var(--accent);
+    }
+    .ach-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+    .ach-card {
+      padding: 24px;
+      display: flex; gap: 16px; align-items: flex-start;
+      opacity: 0; transform: translateY(16px);
+      transition: opacity 0.4s, transform 0.4s;
+    }
+    .ach-card.visible { opacity: 1; transform: translateY(0); }
+    .ach-medal {
+      width: 48px; height: 48px; border-radius: 14px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+    }
+    .ach-medal.gold { background: rgba(251,191,36,0.15); border: 1px solid rgba(251,191,36,0.3); }
+    .ach-medal.silver { background: rgba(148,163,184,0.15); border: 1px solid rgba(148,163,184,0.3); }
+    .ach-medal.bronze { background: rgba(180,120,60,0.15); border: 1px solid rgba(180,120,60,0.3); }
+    .ach-medal.special { background: rgba(167,139,250,0.15); border: 1px solid rgba(167,139,250,0.3); }
+    .ach-title { font-size: 0.88rem; font-weight: 600; margin-bottom: 4px; line-height: 1.4; }
+    .ach-org { font-size: 0.75rem; color: var(--text-muted); }
+    .ach-badge {
+      display: inline-block; margin-top: 6px;
+      font-size: 0.65rem; font-weight: 600; letter-spacing: 1px;
+      text-transform: uppercase; padding: 3px 8px; border-radius: 100px;
+    }
+    .ach-badge.smk { background: rgba(96,165,250,0.15); color: var(--accent2); border: 1px solid rgba(96,165,250,0.25); }
+    .ach-badge.smp { background: rgba(244,114,182,0.15); color: var(--accent3); border: 1px solid rgba(244,114,182,0.25); }
+
+    /* ── PROJECTS ── */
+    #projects { padding: 120px 0; }
+    .projects-empty {
+      text-align: center; padding: 80px 40px;
+      max-width: 480px; margin: 0 auto;
+    }
+    .projects-empty .empty-icon {
+      font-size: 3rem; margin-bottom: 20px; opacity: 0.5;
+    }
+    .projects-empty h3 {
+      font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.4rem;
+      margin-bottom: 12px;
+    }
+    .projects-empty p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.7; }
+
+    /* ── CONTACT ── */
+    #contact { padding: 120px 0 160px; }
+    .contact-wrap { max-width: 640px; margin: 0 auto; }
+    .contact-card { padding: 48px; text-align: center; }
+    .contact-card h3 {
+      font-family: 'Syne', sans-serif; font-size: 2rem;
+      font-weight: 800; letter-spacing: -1px; margin-bottom: 14px;
+    }
+    .contact-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.7; margin-bottom: 36px; }
+    .contact-links { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .contact-link {
+      display: flex; align-items: center; gap: 10px;
+      padding: 12px 24px;
+      background: var(--glass); border: 1px solid var(--glass-border);
+      border-radius: 100px; color: var(--text); text-decoration: none;
+      font-size: 0.85rem; font-weight: 500;
+      backdrop-filter: var(--blur);
+      transition: all 0.25s;
+    }
+    .contact-link:hover {
+      background: rgba(167,139,250,0.12);
+      border-color: rgba(167,139,250,0.3);
+      transform: translateY(-2px);
+      color: var(--accent);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 32px 0;
+      text-align: center;
+      color: var(--text-muted); font-size: 0.78rem;
+      position: relative; z-index: 1;
+    }
+    footer span {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      font-weight: 600;
+    }
+
+    /* ── Scroll Reveal ── */
+    .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      nav { padding: 8px 18px; gap: 18px; }
+      nav a { display: none; }
+      .about-grid { grid-template-columns: 1fr; }
+      .org-grid { grid-template-columns: 1fr; }
+      .about-stats { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Cursor -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- Background -->
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<!-- Navigation -->
+<nav>
+  <span class="logo">AG.</span>
+  <a href="#about">About</a>
+  <a href="#skills">Skills</a>
+  <a href="#education">Education</a>
+  <a href="#achievements">Prestasi</a>
+  <a href="#projects">Projects</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      Available for collaboration
+    </div>
+    <h1>
+      Arfa Ghazi<br/>
+      <span class="gradient-text">Amr Arumi</span>
+    </h1>
+    <p class="hero-sub">
+      Software Engineering student di SMK-IT As-Syifa Subang — 
+      membangun masa depan digital dengan kode, kreativitas, dan karakter.
+    </p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn-primary">Lihat Proyek →</a>
+      <a href="#contact" class="btn-ghost">Hubungi Saya</a>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    scroll
+  </div>
+</section>
+
+<!-- ══ ABOUT ══ -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-img-wrap reveal">
+        <div class="about-avatar glass-card">
+          <img src="pfp.jpg" alt="Foto Arfa Ghazi" style="width: 100%; height: 100%; object-fit: cover; border-radius: 24px;">
+        </div>
+        <div class="about-tag">📍 Subang, Jawa Barat</div>
+      </div>
+      <div class="about-content reveal">
+        <p class="section-label">Tentang Saya</p>
+        <h3>Pelajar. Pemimpin.<br/>Builder.</h3>
+        <p>
+          Halo! Saya <strong>Arfa Ghazi Amr Arumi</strong>, siswa jurusan 
+          <strong>Rekayasa Perangkat Lunak (RPL)</strong> di SMK-IT As-Syifa Subang. 
+          Saya passionate di dunia web development dan aktif dalam berbagai kegiatan 
+          kepemimpinan di sekolah.
+        </p>
+        <p>
+          Selain coding, saya juga aktif di bidang organisasi, public speaking, 
+          dan media kreatif — percaya bahwa teknologi dan karakter harus berjalan beriringan.
+        </p>
+        <div class="about-stats">
+          <div class="stat-box">
+            <div class="stat-num">15+</div>
+            <div class="stat-label">Prestasi</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">5</div>
+            <div class="stat-label">Jabatan Org.</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">2</div>
+            <div class="stat-label">Institusi</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SKILLS ══ -->
+<section id="skills">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">Keahlian</span>
+      <h2 class="section-title">Tech Stack</h2>
+      <p class="section-desc">Tools dan teknologi yang saya kuasai untuk membangun produk digital.</p>
+    </div>
+    <div class="skills-grid">
+      <div class="glass-card skill-category reveal">
+        <div class="skill-category-title">Frontend</div>
+        <div class="skill-pills">
+          <span class="pill"><span class="pill-icon">🌐</span> HTML5</span>
+          <span class="pill"><span class="pill-icon">🎨</span> CSS3</span>
+          <span class="pill"><span class="pill-icon">⚡</span> JavaScript</span>
+          <span class="pill"><span class="pill-icon">💨</span> Tailwind CSS</span>
+          <span class="pill"><span class="pill-icon">🔷</span> Bootstrap</span>
+        </div>
+      </div>
+      <div class="glass-card skill-category reveal">
+        <div class="skill-category-title">Backend</div>
+        <div class="skill-pills">
+          <span class="pill"><span class="pill-icon">🐘</span> PHP</span>
+          <span class="pill"><span class="pill-icon">🔴</span> Laravel</span>
+          <span class="pill"><span class="pill-icon">🗄️</span> MySQL</span>
+        </div>
+      </div>
+      <div class="glass-card skill-category reveal">
+        <div class="skill-category-title">Tools & Design</div>
+        <div class="skill-pills">
+          <span class="pill"><span class="pill-icon">🎭</span> Figma</span>
+          <span class="pill"><span class="pill-icon">🎨</span> Canva</span>
+          <span class="pill"><span class="pill-icon">🐙</span> GitHub</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ EDUCATION ══ -->
+<section id="education">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">Pendidikan</span>
+      <h2 class="section-title">Latar Pendidikan</h2>
+    </div>
+    <div class="edu-timeline">
+      <div class="glass-card edu-card reveal">
+        <div class="edu-glow"></div>
+        <div class="edu-year">2025 — Sekarang</div>
+        <div class="edu-school">SMK-IT As-Syifa Subang</div>
+        <div class="edu-major">Rekayasa Perangkat Lunak (RPL) / Software Engineering</div>
+        <div class="edu-desc">
+          Berfokus pada pengembangan sistem informasi, logika pemrograman (IT), 
+          serta integrasi nilai-nilai kepemimpinan dan karakter Islami.
+        </div>
+      </div>
+      <div class="glass-card edu-card reveal">
+        <div class="edu-glow"></div>
+        <div class="edu-year">2022 — 2025</div>
+        <div class="edu-school">SMPIQu Al-Bahjah Kuningan</div>
+        <div class="edu-major">Pendidikan Menengah Pertama</div>
+        <div class="edu-desc">
+          Berfokus pada penguatan adab, pendidikan karakter berbasis kepesantrenan, 
+          dan penguasaan ilmu pengetahuan dasar komprehensif. 
+          Lulus sebagai Lulusan Terbaik dengan konsistensi akademik tinggi.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ORGANIZATION ══ -->
+<section id="organization">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">Pengalaman</span>
+      <h2 class="section-title">Organisasi & Kepemimpinan</h2>
+      <p class="section-desc">Peran aktif yang membentuk jiwa kepemimpinan dan kolaborasi.</p>
+    </div>
+    <div class="org-grid">
+      <div class="reveal">
+        <div class="org-section-title">🏫 SMK-IT As-Syifa Subang</div>
+        <div class="org-item">
+          <div class="org-icon">🗂️</div>
+          <div>
+            <div class="org-role">Sekretaris BPH OSIS</div>
+            <div class="org-desc">Mengelola sistem administrasi, pengarsipan, dan alur komunikasi internal organisasi.</div>
+          </div>
+        </div>
+        <div class="org-item">
+          <div class="org-icon">🌐</div>
+          <div>
+            <div class="org-role">Ketua Language Ambassador & Duta As-Syifa</div>
+            <div class="org-desc">Representatif sekolah dan memimpin program peningkatan literasi bahasa asing.</div>
+          </div>
+        </div>
+        <div class="org-item">
+          <div class="org-icon">📱</div>
+          <div>
+            <div class="org-role">Koordinator Tim Media</div>
+            <div class="org-desc">Memimpin produksi konten digital dan manajemen publikasi untuk branding sekolah.</div>
+          </div>
+        </div>
+        <div class="org-item">
+          <div class="org-icon">📣</div>
+          <div>
+            <div class="org-role">Ketua Tim Pubdok ASFERA 2026</div>
+            <div class="org-desc">Strategi publikasi dan dokumentasi acara besar tahunan skala raya.</div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="org-section-title">🏛️ SMPIQu Al-Bahjah Kuningan</div>
+        <div class="org-item">
+          <div class="org-icon">🎭</div>
+          <div>
+            <div class="org-role">Ketua Divisi Bidang Acara OSIS</div>
+            <div class="org-desc">Merancang, menyusun konsep, dan mengeksekusi berbagai program kerja serta event resmi sekolah.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ACHIEVEMENTS ══ -->
+<section id="achievements">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">Prestasi</span>
+      <h2 class="section-title">Penghargaan & Prestasi</h2>
+      <p class="section-desc">Rekam jejak dedikasi dalam akademik, kepemimpinan, dan karakter.</p>
+    </div>
+    <div class="ach-tabs">
+      <button class="tab-btn active" onclick="filterAch('all', this)">Semua</button>
+      <button class="tab-btn" onclick="filterAch('akademik', this)">Akademik</button>
+      <button class="tab-btn" onclick="filterAch('nonakademik', this)">Non-Akademik</button>
+    </div>
+    <div class="ach-grid" id="achGrid">
+      <!-- Akademik -->
+      <div class="glass-card ach-card" data-cat="akademik">
+        <div class="ach-medal special">🏆</div>
+        <div>
+          <div class="ach-title">Finalis Lomba KTI DINAMIK – UPI</div>
+          <div class="ach-org">Universitas Pendidikan Indonesia</div>
+          <span class="ach-badge smk">SMK</span>
+        </div>
+      </div>
+      <div class="glass-card ach-card" data-cat="akademik">
+        <div class="ach-medal bronze">🥉</div>
+        <div>
+          <div class="ach-title">Medali Perunggu – Olimpiade Capital</div>
+          <div class="ach-org">Kompetisi Olimpiade Capital</div>
+          <span class="ach-badge smk">SMK</span>
+        </div>
+      </div>
+      <div class="glass-card ach-card" data-cat="akademik">
+        <div class="ach-medal bronze">🥉</div>
+        <div>
+          <div class="ach-title">Medali Perunggu – OSPAN</div>
+          <div class="ach-org">Olimpiade Siswa Prestasi Akademik Nasional</div>
+          <span class="ach-badge smp">SMP</span>
+        </div>
+      </div>
+      <div class="glass-card ach-card" data-cat="akademik">
+        <div class="ach-medal special">🔬</div>
+        <div>
+          <div class="ach-title">Peserta OSN Bidang IPA Tingkat Kabupaten</div>
+          <div class="ach-org">Olimpiade Sains Nasional</div>
+          <span class="ach-badge smp">SMP</span>
+        </div>
+      </div>
+      <div class="glass-card ach-card" data-cat="akademik">
+        <div class="ach-medal gold">🥇</div>
+        <div>
+          <div class="ach-title">Juara 1 LCC Semarak Dzulhijjah</div>
+          <div class="ach-org">SMK-IT As-Syifa</div>
+          <span class="ach-badge smk">SMK</span>
+        </div>
+      </div>
+      <div class="glass-card ach-card" data-cat="akademik">
+        <div class="ach-medal gold">🥇</div>
+        <div>
+          <div class="ach-title">LCC Semarak Ramadhan</div>
+          <div class="ach-org">SMK-IT As-Syifa</div>
+          <span class="ach-badge smk">SMK</span>
+        </div>
+      </div>
+      <div class="glass-card ach-card" data-cat="akademik">
+        <div class="ach-medal gold">🏅</div>
+        <div>
+          <div class="ach-title">Juara Umum / Peringkat 1 Tahunan</div>
+          <div class="ach-org">Kelas 7 – SMPIQu Al-Bahjah</div>
+          <span class="ach-badge smp">SMP</span>
+        </div>
+      </div>
+      <div class="glass-card ach-card" data-cat="akademik">
+        <div class="ach-medal gold">⭐</div>
+        <div>
+          <div class="ach-title">Peringkat 1 Konsisten</div>
+          <div class="ach-org">Sem. 2 Kls. 7 s.d. Sem. 1 Kls. 9 – SMPIQu</div>
+          <span class="ach-badge smp">SMP</span>
+        </div>
+      </div>
+      <div class="glass-card ach-card" data-cat="akademik">
+        <div class="ach-medal gold">🇬🇧</div>
+        <div>
+          <div class="ach-title">Lulusan Terbaik English Immersion (100/Excellent)</div>
+          <div class="ach-org">Program Karantina Bahasa Inggris 3 Bulan</div>
+          <span class="ach-badge smp">SMP</span>
+        </div>
+      </div>
+      <div class="glass-card ach-card" data-cat="akademik">
+        <div class="ach-medal gold">🥇</div>
+        <div>
+          <div class="ach-title">Juara 1 Olimpiade Sains – Zeal Competition</div>
+          <div class="ach-org">Zeal Competition</div>
+          <span class="ach-badge smp">SMP</span>
+        </div>
+      </div>
+      <div class="glass-card ach-card" data-cat="akademik">
+        <div class="ach-medal gold">🥇</div>
+        <div>
+          <div class="ach-title">Juara 1 LCC – Pekan Olahraga Santri</div>
+          <div class="ach-org">Kompetisi Internal SMPIQu</div>
+          <span class="ach-badge smp">SMP</span>
+        </div>
+      </div>
+
+      <!-- Non-Akademik -->
+      <div class="glass-card ach-card" data-cat="nonakademik">
+        <div class="ach-medal special">🎖️</div>
+        <div>
+          <div class="ach-title">Penghargaan Siswa Terdisiplin</div>
+          <div class="ach-org">MPLS SMK-IT As-Syifa (2025)</div>
+          <span class="ach-badge smk">SMK</span>
+        </div>
+      </div>
+      <div class="glass-card ach-card" data-cat="nonakademik">
+        <div class="ach-medal gold">🏆</div>
+        <div>
+          <div class="ach-title">Juara LCC Bina Pribadi As-Syifa (BPA)</div>
+          <div class="ach-org">SMK-IT As-Syifa</div>
+          <span class="ach-badge smk">SMK</span>
+        </div>
+      </div>
+      <div class="glass-card ach-card" data-cat="nonakademik">
+        <div class="ach-medal gold">🎤</div>
+        <div>
+          <div class="ach-title">Juara 1 Public Speaking – Zeal Competition</div>
+          <div class="ach-org">Zeal Competition</div>
+          <span class="ach-badge smp">SMP</span>
+        </div>
+      </div>
+      <div class="glass-card ach-card" data-cat="nonakademik">
+        <div class="ach-medal silver">🎨</div>
+        <div>
+          <div class="ach-title">Juara 2 Desain Poster</div>
+          <div class="ach-org">Pekan Olahraga Santri – Internal</div>
+          <span class="ach-badge smp">SMP</span>
+        </div>
+      </div>
+      <div class="glass-card ach-card" data-cat="nonakademik">
+        <div class="ach-medal silver">🏐</div>
+        <div>
+          <div class="ach-title">Juara 2 Bola Voli</div>
+          <div class="ach-org">Pekan Olahraga Santri – Internal</div>
+          <span class="ach-badge smp">SMP</span>
+        </div>
+      </div>
+      <div class="glass-card ach-card" data-cat="nonakademik">
+        <div class="ach-medal special">🏕️</div>
+        <div>
+          <div class="ach-title">Peserta Aktif JAMBARA</div>
+          <div class="ach-org">Jambore As-Syifa Raya</div>
+          <span class="ach-badge smk">SMK</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROJECTS ══ -->
+<section id="projects">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">Portofolio</span>
+      <h2 class="section-title">Proyek</h2>
+      <p class="section-desc">Karya-karya yang sedang dan akan dibangun.</p>
+    </div>
+    <div class="glass-card projects-empty reveal">
+      <div class="empty-icon">🚀</div>
+      <h3>Coming Soon</h3>
+      <p>
+        Proyek-proyek keren sedang dalam proses pengerjaan. 
+        Stay tuned — sesuatu yang luar biasa sedang dibangun di sini!
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTACT ══ -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-wrap">
+      <div class="glass-card contact-card reveal">
+        <p class="section-label">Kontak</p>
+        <h3>Mari Berkolaborasi! ✨</h3>
+        <p>
+          Punya proyek menarik atau ingin berkolaborasi? 
+          Jangan ragu untuk menghubungi saya. 
+          Saya terbuka untuk proyek, diskusi, maupun kesempatan baru.
+        </p>
+        <div class="contact-links">
+          <a href="mailto:arfaghazi@gmail.com" class="contact-link">
+            <span>📧</span> Email
+          </a>
+          <a href="https://github.com/ArfGhazi" target="_blank" class="contact-link">
+            <span>🐙</span> GitHub
+          </a>
+          <a href="https://wa.me/6285861528670" target="_blank" class="contact-link">
+            <span>💬</span> WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="container">
+    <p><span>Arfa Ghazi Amr Arumi</span> &nbsp;·&nbsp; © 2026</p>
+  </div>
+</footer>
+
+<script>
+  /* ── Cursor ── */
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursor-ring');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.transform = `translate(${mx - 6}px, ${my - 6}px)`;
+  });
+  function animateRing() {
+    rx += (mx - rx - 20) * 0.12;
+    ry += (my - ry - 20) * 0.12;
+    ring.style.transform = `translate(${rx}px, ${ry}px)`;
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+  document.querySelectorAll('a, button, .pill, .org-item').forEach(el => {
+    el.addEventListener('mouseenter', () => { cursor.style.transform += ' scale(2)'; ring.style.opacity = '0.4'; });
+    el.addEventListener('mouseleave', () => { ring.style.opacity = '1'; });
+  });
+
+  /* ── Scroll Reveal ── */
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  /* ── Achievement Cards Reveal ── */
+  const achObserver = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 60);
+      }
+    });
+  }, { threshold: 0.05 });
+  document.querySelectorAll('.ach-card').forEach(el => achObserver.observe(el));
+
+  /* ── Achievement Filter ── */
+  function filterAch(cat, btn) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.ach-card').forEach(card => {
+      const match = cat === 'all' || card.dataset.cat === cat;
+      card.style.display = match ? 'flex' : 'none';
+    });
+  }
+
+  /* ── Nav Active ── */
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('nav a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 200) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current
+        ? 'var(--accent)' : '';
+    });
+  });
+</script>
+</body>
+</html>
